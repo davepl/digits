@@ -37,11 +37,16 @@ class TM1638:
     def clear(self):
         self.write([0x00] * 16)
 
-    def display_number(self, number):
-        # Convert number to a string and pad with zeros
-        str_number = str(number).zfill(8)
+    def display_number(self, number, zero_pad=True):
+        # Convert number to a string
+        str_number = str(number)
+        # Pad with zeros or spaces
+        if zero_pad:
+            str_number = str_number.zfill(8)
+        else:
+            str_number = str_number.rjust(8)
         # Create segment data for each digit
-        segments = [digit_to_segment[int(digit)] for digit in str_number]
+        segments = [digit_to_segment[int(digit)] if digit.isdigit() else 0x00 for digit in str_number]
         # Interleave segments with 0x00 for dots
         interleaved_segments = []
         for segment in segments:

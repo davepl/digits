@@ -23,8 +23,5 @@ try:
 except KeyboardInterrupt:
     pass
 
-# Clear the display before exiting
-tm.clear()
-
 # Cleanup GPIO
 tm.cleanup()
